@@ -37,8 +37,8 @@
 ;; to use MELPA as well.
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
+(add-to-list 'package-archives '("org-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/") t)
 
 ;; To get the package manager going, we invoke its initialise function.
 (package-initialize)
