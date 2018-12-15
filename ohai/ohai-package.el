@@ -32,13 +32,24 @@
             (network-interface-list))
     t))
 
+(defun use-emacs-china-mirror ()
+  (let ((use-china (getenv "USE_EMACS_CHINA_MIRROR")))
+    (if (not use-china)
+        nil
+      (if (or (compare-strings use-china nil nil "Y" nil nil t)
+              (compare-strings use-china nil nil "yes" nil nil t))
+          t
+        nil))))
+
 ;; Emacs comes with a package manager for installing more features.
 ;; The default package repository doesn't contain much, so we tell it
 ;; to use MELPA as well.
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (require 'package)
-(add-to-list 'package-archives '("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
-(add-to-list 'package-archives '("org-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/") t)
+
+(if (use-emacs-china-mirror)
+    (progn (push '("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") package-archives)
+           (push '("org-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/") package-archives)))
 
 ;; To get the package manager going, we invoke its initialise function.
 (package-initialize)
